@@ -3,6 +3,7 @@
 ## 工厂方法模式
 
 定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类
+
 自我总结：更具不同条件创建不同实例
 ```
   //定义一个生产超人的工厂
@@ -23,6 +24,7 @@
 ## 抽象工厂模式
 
 为创建一组相关或相互依赖的对象提供一个接口，而且无需指定它们的具体类
+
 自我总结：工厂为接口，具体实例创建由工厂实现类实现
 ```
 public interface CarFactory {
@@ -60,6 +62,7 @@ public class BMWFactory implements CarFactory {
 ## 建造者模式
 
 将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示
+
 自我总结：建造者抽象类定义对象创建过程，具体的过程实现由不同子类完成，以达到不同实例的创建
 ```
 public abstract class Builder {
@@ -105,6 +108,7 @@ public class ChildSuperManBuilder extends Builder {
 ```
 ## 单例模式
 确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例
+
 自我总结：构造函数私有化，提供一个静态方法来获取唯一实例
 ```
 public final class Singleton {
@@ -123,6 +127,7 @@ public final class Singleton {
 ```
 ## 原型模式
 用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象
+
 自我总结：使用原型模式需要实现Cloneable接口，并重写clone()方法
 ```
 public class Thing implements Cloneable{
