@@ -1,6 +1,8 @@
 # 结构型模式
 ## 适配器模式
 将一个类的接口变换成客户端所期待的另一种接口，从而是原本因接口不匹配而无法在一起工作的两个类能够在一起工作
+
+自我总结：适配器类继承需适配的类并实现需适配类想调用方法所在的接口，实际中使用适配器实例进行工作
 ```
 public class Adapter extends Adaptee implements Target {
 	public void request() {
@@ -10,6 +12,8 @@ public class Adapter extends Adaptee implements Target {
 ```
 ## 装饰器模式
 动态地给一个对象添加一些额外的职责。就增加功能来说，装饰模式相比生产子类更为灵活
+
+自我总结：装饰者类中必然存在一个private变量指向需装饰者的抽象构件
 ```
 public abstract class Decorator extends Component {
 	private Component component = null;
