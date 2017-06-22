@@ -2,7 +2,7 @@
 ## 适配器模式
 将一个类的接口变换成客户端所期待的另一种接口，从而是原本因接口不匹配而无法在一起工作的两个类能够在一起工作
 
-自我总结：适配器类继承需适配的类并实现需适配类想调用方法所在的接口，实际中使用适配器实例进行工作
+自我总结：适配器类继承需适配的类并实现需适配类想调用方法所在的接口，实际中使用适配器实例进行工作，旨在对象转化
 ```
 public class Adapter extends Adaptee implements Target {
 	public void request() {
@@ -13,7 +13,7 @@ public class Adapter extends Adaptee implements Target {
 ## 装饰器模式
 动态地给一个对象添加一些额外的职责。就增加功能来说，装饰模式相比生产子类更为灵活
 
-自我总结：装饰者类中必然存在一个private变量指向需装饰者的抽象构件
+自我总结：装饰者类中必然存在一个private变量指向需装饰者的抽象构件，一般装饰兄弟类，隶属于同一个家族,旨在保证被修饰的对象功能比原始对象丰富(当然，也可以减弱)，旨在加强对象的功能
 ```
 public abstract class Decorator extends Component {
 	private Component component = null;
@@ -65,6 +65,26 @@ public class Client {
 ```
 ## 代理模式
 为其他对象提供一种代理以控制对这个对象的访问
+
+自我总结：代理模式是把当前的行为或功能委托给其他对象执行，代理类负责接口限定，可以在执行委托对象方法之前或者之后进行其他操作
+```
+public class RunnerAgent implements IRunner {
+	private IRunner runner;
+	public RunnerAgent(IRunner _runner){
+		this.runner = _runner;
+	}
+	//代理人是不会跑的
+	public void run() {
+		Random rand = new Random();
+		if(rand.nextBoolean()){
+			System.out.println("代理人同意安排运动员跑步");
+			runner.run();
+		}else{
+			System.out.println("代理人心情不好，不安排运动品跑步");
+		}
+	}
+}
+```
 ## 外观模式
 要求一个子系统的外部与其内部的通讯必须通过一个统一的对象进行。外观模式提供一个高层次的接口，使得子系统更易于使用
 ```
