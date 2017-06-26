@@ -393,7 +393,7 @@ public class Memento {
 ## 状态模式
 当一个对象内在状态改变时允许其改变行为，这个对象看起来像改变了其类
 
-自我总结：不同状态对象只处理自己状态需处理的动作，其他动作则由环境类和状态类共同进行状态切换后的状态对象执行。
+自我总结：不同状态对象只处理自己状态需处理的动作，其他动作则由环境类和状态类共同进行状态切换后的状态对象执行。Context的状态是一个State类型，所以无论State派生出多少个子类，都能成为Context的状态。至于Context的状态变化，就在State子类的Handle方法中实现。例如ConcreateState1的handle方法，可以将Context的状态赋值成ConcreteState2对象，ConcreteState2的handle方法，可以将Context的状态赋值成ConcreteState3（图中没有）对象……一次类推。这样就将一个复杂的状态变化链，分解到每一步状态对象中
 ```
 public class Context {
 	//定义状态
