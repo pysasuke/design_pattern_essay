@@ -122,6 +122,8 @@ public class HummerH1Model extends HummerModel {
 ```
 ## 观察者模式
 定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并被自动更新
+
+自我总结：被观察者内部包含一个储存观察者的容器，可以添加、删除、通知所有观察者，观察者实现Observer接口并实现update()方法，当被观察者发生某些动作时通知所有观察者调用update()方法。
 ```
 public abstract class Subject {
 	//定一个一个观察者数组
@@ -163,6 +165,39 @@ public class Merchant1Observer implements Observer {
 	//实现更新方法
 	public void update() {
 		System.out.println(name + "接收到信息，并进行处理！");
+	}
+}
+```
+也可以引入java.util包：被观察者继承Observable类，观察者实现Observer接口并实现update方法
+```
+public class HanFeiZi extends Observable{
+	//韩非子要吃饭了
+	public void haveBreakfast(){
+		System.out.println("韩非子:开始吃饭了...");
+		//通知所有的观察者
+		super.setChanged();
+		super.notifyObservers("韩非子在吃饭");
+		
+	}
+	//韩非子开始娱乐了,古代人没啥娱乐，你能想到的就那么多
+	public void haveFun(){
+		System.out.println("韩非子:开始娱乐了...");
+		super.setChanged();
+		this.notifyObservers("韩非子在娱乐");
+	}
+}
+```
+```
+public class LiuSi implements Observer{
+	//刘斯，观察到韩非子活动后，自己也做一定得事情
+	public void update(Observable observable,Object obj){
+		System.out.println("刘斯：观察到韩非子活动，开始动作了...");
+		this.happy(obj.toString());
+		System.out.println("刘斯：真被乐死了\n");
+	}
+	//一看韩非子有变化，他就快乐
+	private void happy(String context){
+		System.out.println("刘斯：因为" +context+",——所以我快乐呀！" );
 	}
 }
 ```
@@ -357,6 +392,64 @@ public class Memento {
 ```
 ## 状态模式
 当一个对象内在状态改变时允许其改变行为，这个对象看起来像改变了其类
+
+自我总结：不同状态对象只处理自己状态需处理的动作，其他动作则由环境类和状态类共同进行状态切换后的状态对象执行。
+```
+public class Context {
+	//定义状态
+	public final static State STATE1 = new ConcreteState1();
+	public final static State STATE2 = new ConcreteState2();
+	//当前状态
+	private State CurrentState;
+	//获得当前状态
+	public State getCurrentState() {
+		return CurrentState;
+	}
+	//设置当前状态
+	public void setCurrentState(State currentState) {
+		this.CurrentState = currentState;
+		//切换状态
+		this.CurrentState.setContext(this);
+	}
+	//行为委托
+	public void handle1(){
+		this.CurrentState.handle1();
+	}
+	public void handle2(){
+		this.CurrentState.handle2();
+	}
+}
+```
+```
+public abstract class State {
+	//定义一个环境角色，提供子类访问
+	protected Context context;
+	//设置环境角色
+	public void setContext(Context _context){
+		this.context = _context;
+	}
+	//行为1
+	public abstract void handle1();
+	//行为2
+	public abstract void handle2();
+}
+```
+```
+public class ConcreteState1 extends State {
+	@Override
+	public void handle1() {
+		//本状态下必须处理的逻辑
+		System.out.println("ConcreteState1 handle1 do it");
+	}
+	@Override
+	public void handle2() {
+		//设置当前状态为stat2
+		super.context.setCurrentState(Context.STATE2);
+		//过渡到state2状态，由Context实现
+		super.context.handle2();
+	}
+}
+```
 ## 访问者模式
 封装一些作用于某种数据结构中的各元素的操作，它可以在不改变数据结构的前提下定义作用于这些元素的新的操作
 ```
