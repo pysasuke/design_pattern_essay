@@ -121,6 +121,8 @@ public class Context {
 ```
 ## 桥接模式
 将抽象和实现解耦，使得两者可以独立地变化
+
+自我总结：抽象角色引用实现角色，或者说抽象角色的部分实现是由实现角色完成的
 ```
 public class ConcreteImplementor1 implements Implementor{
 	public void doSomething(){
