@@ -67,6 +67,8 @@ public class Client {
 为其他对象提供一种代理以控制对这个对象的访问
 
 自我总结：代理模式是把当前的行为或功能委托给其他对象执行，代理类负责接口限定，可以在执行委托对象方法之前或者之后进行其他操作
+
+特点：代理模式是与原对象实现同一个接口，必须要实现原接口和持有真实的对象，才能称之为代理类。
 ```
 public class RunnerAgent implements IRunner {
 	private IRunner runner;
